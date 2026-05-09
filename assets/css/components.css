@@ -1,0 +1,64 @@
+/* ----------------------------------------------------- */
+/* 胶囊导航栏容器 */
+.navbar-custom-navbar-lui {
+    /* 局部变量定义 (使用 rem) */
+    --md-primary-navbar-lui: #ff85a1;
+    --md-surface-navbar-lui: #fff1f3;
+    --md-container-navbar-lui: #ffffff;
+    --md-on-surface-navbar-lui: #201a1b;
+    --md-outline-navbar-lui: #eeeeee;
+    /* 阴影通常使用 px 保持物理精确，但也可以转为 rem */
+    --shadow-navbar-lui: 0 0.25rem 0.75rem rgba(255, 133, 161, 0.1);
+
+    /* 布局样式 */
+    background-color: var(--md-container-navbar-lui) !important;
+    border-radius: 3.125rem !important; /* 50px */
+    margin: 0.9375rem auto !important;   /* 15px */
+    padding: 0.625rem 1.875rem !important; /* 10px 30px */
+    box-shadow: var(--shadow-navbar-lui) !important;
+    border: 0.0625rem solid var(--md-outline-navbar-lui) !important; /* 1px */
+    max-width: 95%;
+    transition: all 0.4s ease;
+}
+
+/* 品牌 Logo */
+.navbar-brand-navbar-lui {
+    color: var(--md-primary-navbar-lui) !important;
+    font-size: 1.25rem !important; /* 20px */
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+/* 导航链接 */
+.nav-link-navbar-lui {
+    color: var(--md-on-surface-navbar-lui) !important;
+    padding: 0.5rem 0.9375rem !important; /* 8px 15px */
+    font-weight: 500;
+    font-size: 1rem !important; /* 16px */
+    transition: color 0.3s ease;
+}
+
+.nav-link-navbar-lui:hover {
+    color: var(--md-primary-navbar-lui) !important;
+    text-decoration: none;
+}
+
+/* 移动端适配 (992px 以下) */
+@media (max-width: 61.99875rem) { 
+    .navbar-custom-navbar-lui {
+        border-radius: 1.25rem !important; /* 20px */
+        padding: 0.625rem 1.25rem !important; /* 10px 20px */
+        margin: 0.5rem auto !important;
+    }
+    
+    .nav-link-navbar-lui {
+        padding: 0.625rem 0 !important;
+        border-bottom: 0.0625rem solid var(--md-outline-navbar-lui);
+    }
+    
+    /* 最后一个链接去掉底边框 */
+    .navbar-nav .nav-item:last-child .nav-link-navbar-lui {
+        border-bottom: none;
+    }
+}
+/* ----------------------------------------------------- */

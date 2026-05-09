@@ -1,0 +1,329 @@
+        /* 1. 集成 base.css 的 MD3 变量系统 */
+        :root {
+            --md-primary: #ff85a1;
+            --md-surface: #fff1f3;
+            --md-container: #ffffff;
+            --md-on-surface: #201a1b;
+            --md-on-container: #524345;
+            --md-outline: #eeeeee;
+            --md-radius: 28px;
+            --shadow: 0 4px 12px rgba(255, 133, 161, 0.1);
+            --switch-track: #f7f2f9;
+            --switch-thumb: #79747e;
+        }
+
+        body.dark-mode {
+            --md-primary: #ffb3c1;
+            --md-surface: #1a1112;
+            --md-container: #251a1c;
+            --md-on-surface: #f0e0e1;
+            --md-on-container: #d7c2c3;
+            --md-outline: #382d2f;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --switch-track: #2b2930;
+            --switch-thumb: #d0bcff;
+        }
+
+        /* 2. 基础样式调整 */
+        body {
+            background-color: var(--md-surface) !important;
+            color: var(--md-on-container);
+            transition: all 0.4s ease;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            min-height: 100vh;
+        }
+
+        /* 3. 胶囊式导航栏 - 适配 Bootstrap */
+        .navbar-custom {
+            background-color: var(--md-container);
+            border-radius: 50px;
+            margin: 15px auto;
+            padding: 10px 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--md-outline);
+            max-width: 95%;
+        }
+
+        /* 4. 编辑器与预览卡片 */
+        .md3-card {
+            background: var(--md-container);
+            border-radius: var(--md-radius);
+            border: 1px solid var(--md-outline);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .post-title-input {
+            width: 100%;
+            background: var(--md-surface);
+            border: 1px solid var(--md-outline);
+            border-radius: 16px;
+            padding: 12px 20px;
+            font-size: 1.25rem;
+            color: var(--md-on-surface);
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        /* 预览卡片特定样式 - 匹配图 3 文章列表 */
+        .preview-card-header {
+            text-align: center;
+            position: relative;
+        }
+
+        .tag-badge {
+            background: #ffe0e6;
+            color: var(--md-primary);
+            padding: 4px 16px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .btn-md3-pill {
+            background: var(--md-primary);
+            color: white !important;
+            border-radius: 50px;
+            padding: 8px 25px;
+            border: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-md3-pill:hover { opacity: 0.9; transform: translateY(-2px); }
+
+        /* 5. 主题开关吸附容器 */
+        #theme-wrapper {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(60%);
+            transition: transform 0.4s ease;
+            z-index: 1050;
+        }
+        #theme-wrapper:hover { transform: translateY(-50%) translateX(-10px); }
+
+        .md3-switch__track {
+            width: 50px; height: 30px; border-radius: 100px;
+            background: var(--switch-track); border: 2px solid var(--md-outline);
+            position: relative; cursor: pointer;
+        }
+        .md3-switch__thumb {
+            position: absolute; top: 3px; left: 3px; width: 20px; height: 20px;
+            border-radius: 50%; background: var(--switch-thumb);
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        body.dark-mode .md3-switch__thumb { left: 23px; background: var(--md-primary); }
+        .md3-switch__thumb i { font-size: 14px; }
+
+        /* Vditor 适配 */
+        .vditor { border: none !important; }
+        .vditor-toolbar { background: var(--md-surface) !important; border-radius: 12px 12px 0 0; }
+        /* ----------------------------------------------------- */
+/* 胶囊导航栏容器 */
+.navbar-custom-navbar-lui {
+    /* 局部变量定义 (使用 rem) */
+    --md-primary-navbar-lui: #ff85a1;
+    --md-surface-navbar-lui: #fff1f3;
+    --md-container-navbar-lui: #ffffff;
+    --md-on-surface-navbar-lui: #201a1b;
+    --md-outline-navbar-lui: #eeeeee;
+    /* 阴影通常使用 px 保持物理精确，但也可以转为 rem */
+    --shadow-navbar-lui: 0 0.25rem 0.75rem rgba(255, 133, 161, 0.1);
+
+    /* 布局样式 */
+    background-color: var(--md-container-navbar-lui) !important;
+    border-radius: 3.125rem !important; /* 50px */
+    margin: 0.9375rem auto !important;   /* 15px */
+    padding: 0.625rem 1.875rem !important; /* 10px 30px */
+    box-shadow: var(--shadow-navbar-lui) !important;
+    border: 0.0625rem solid var(--md-outline-navbar-lui) !important; /* 1px */
+    max-width: 95%;
+    transition: all 0.4s ease;
+}
+
+/* 品牌 Logo */
+.navbar-brand-navbar-lui {
+    color: var(--md-primary-navbar-lui) !important;
+    font-size: 1.25rem !important; /* 20px */
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+/* 导航链接 */
+.nav-link-navbar-lui {
+    color: var(--md-on-surface-navbar-lui) !important;
+    padding: 0.5rem 0.9375rem !important; /* 8px 15px */
+    font-weight: 500;
+    font-size: 1rem !important; /* 16px */
+    transition: color 0.3s ease;
+}
+
+.nav-link-navbar-lui:hover {
+    color: var(--md-primary-navbar-lui) !important;
+    text-decoration: none;
+}
+
+/* 移动端适配 (992px 以下) */
+@media (max-width: 61.99875rem) { 
+    .navbar-custom-navbar-lui {
+        border-radius: 1.25rem !important; /* 20px */
+        padding: 0.625rem 1.25rem !important; /* 10px 20px */
+        margin: 0.5rem auto !important;
+    }
+    
+    .nav-link-navbar-lui {
+        padding: 0.625rem 0 !important;
+        border-bottom: 0.0625rem solid var(--md-outline-navbar-lui);
+    }
+    
+    /* 最后一个链接去掉底边框 */
+    .navbar-nav .nav-item:last-child .nav-link-navbar-lui {
+        border-bottom: none;
+    }
+}
+
+/* ----------------------------------------------------- */
+/* 胶囊导航栏容器 */
+.navbar-custom-navbar-lui {
+    /* 局部变量定义 (使用 rem) */
+    --md-primary-navbar-lui: #ff85a1;
+    --md-surface-navbar-lui: #fff1f3;
+    --md-container-navbar-lui: #ffffff;
+    --md-on-surface-navbar-lui: #201a1b;
+    --md-outline-navbar-lui: #eeeeee;
+    /* 阴影通常使用 px 保持物理精确，但也可以转为 rem */
+    --shadow-navbar-lui: 0 0.25rem 0.75rem rgba(255, 133, 161, 0.1);
+
+    /* 布局样式 */
+    background-color: var(--md-container-navbar-lui) !important;
+    border-radius: 3.125rem !important; /* 50px */
+    margin: 0.9375rem auto !important;   /* 15px */
+    padding: 0.625rem 1.875rem !important; /* 10px 30px */
+    box-shadow: var(--shadow-navbar-lui) !important;
+    border: 0.0625rem solid var(--md-outline-navbar-lui) !important; /* 1px */
+    max-width: 95%;
+    transition: all 0.4s ease;
+}
+
+/* 品牌 Logo */
+.navbar-brand-navbar-lui {
+    color: var(--md-primary-navbar-lui) !important;
+    font-size: 1.25rem !important; /* 20px */
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+/* 导航链接 */
+.nav-link-navbar-lui {
+    color: var(--md-on-surface-navbar-lui) !important;
+    padding: 0.5rem 0.9375rem !important; /* 8px 15px */
+    font-weight: 500;
+    font-size: 1rem !important; /* 16px */
+    transition: color 0.3s ease;
+}
+
+.nav-link-navbar-lui:hover {
+    color: var(--md-primary-navbar-lui) !important;
+    text-decoration: none;
+}
+
+/* 移动端适配 (992px 以下) */
+@media (max-width: 61.99875rem) { 
+    .navbar-custom-navbar-lui {
+        border-radius: 1.25rem !important; /* 20px */
+        padding: 0.625rem 1.25rem !important; /* 10px 20px */
+        margin: 0.5rem auto !important;
+    }
+    
+    .nav-link-navbar-lui {
+        padding: 0.625rem 0 !important;
+        border-bottom: 0.0625rem solid var(--md-outline-navbar-lui);
+    }
+    
+    /* 最后一个链接去掉底边框 */
+    .navbar-nav .nav-item:last-child .nav-link-navbar-lui {
+        border-bottom: none;
+    }
+}
+/* 强制同步 Vditor 背景与文字颜色 */
+.vditor, 
+.vditor-toolbar, 
+.vditor-content, 
+.vditor-textarea, 
+.vditor-preview {
+    background-color: var(--md-container) !important;
+    color: var(--md-on-surface) !important;
+}
+
+/* 针对输入框光标和焦点区域 */
+.vditor-reset {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+/* 重点：修正边框颜色，使其符合 MD3 规范 */
+.vditor {
+    border: 1px solid var(--md-outline) !important;
+    border-radius: var(--md-radius) !important; /* 使用你定义的 28px 圆角 */
+    overflow: hidden;
+}
+
+/* 工具栏图标适配粉色系 */
+.vditor-toolbar__item svg {
+    fill: var(--md-primary) !important; /* 使用你的 #ff85a1 */
+}
+
+/* ------------------------------------------ */
+/* edit.css 关键部分 */
+body {
+    --md-primary: #ff85a1;
+    --md-surface: #fff1f3;
+    --md-container: #ffffff;
+    --md-on-surface: #201a1b;
+    --md-outline: #eeeeee;
+    --shadow: 0 0.25rem 0.75rem rgba(255, 133, 161, 0.1);
+    
+    background-color: var(--md-surface) !important;
+}
+
+body.dark-mode {
+    --md-primary: #ffb3c1;
+    --md-surface: #1a1112;
+    --md-container: #251a1c;
+    --md-on-surface: #f0e0e1;
+    --md-outline: #382d2f;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* 胶囊导航栏容器 */
+.navbar-custom-navbar-lui {
+    background-color: var(--md-container) !important;
+    border-radius: 3.125rem !important; 
+    margin: 0.5rem auto 1.5rem auto !important;
+    padding: 0.625rem 1.875rem !important;
+    box-shadow: var(--shadow) !important;
+    border: 0.0625rem solid var(--md-outline) !important;
+    max-width: 95%;
+    transition: all 0.4s ease;
+}
+
+/* 品牌文字颜色 */
+.navbar-brand-navbar-lui {
+    color: var(--md-primary) !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* 导航链接颜色 */
+.nav-link-navbar-lui {
+    color: var(--md-on-surface) !important;
+    transition: color 0.3s ease;
+}

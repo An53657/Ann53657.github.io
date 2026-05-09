@@ -6,7 +6,7 @@ const postData = [
         date: "2026年5月6日",
         views: 222,
         summary: "这是一个基于 Nekopara和MD3主题风格搭建的博客...",
-        link: "posts/welcome.html"
+        link: "#"
     },
     {
         tag: "开发日志",
@@ -14,14 +14,14 @@ const postData = [
         date: "2026年5月5日",
         views: 105,
         summary: "最近在研究数据集生成工具",
-        link: "posts/python-fine-tune.html"
+        link: "#"
     }
 ];
 
 // 个人站数据，模拟从后端获取的 JSON 数据
 const profileData = {
     name: "Kelly",
-    avatar: "https://via.placeholder.com/150?text=Chocola",
+    avatar: "#",
     motto: "「又是是美好的一天」",
     details: [
         { icon: "🐾", label: "种族", value: "混合布丁猫" },
