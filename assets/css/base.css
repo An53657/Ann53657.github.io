@@ -1,0 +1,161 @@
+/* 所有可以复用的css文件都放在base.css */
+
+/* ================================================= */
+/* 1. 全局 MD3 变量系统 - 核心主题定义 */
+/* ================================================= */
+:root {
+    /* 浅色模式 */
+    --md-primary: #ff85a1;
+    --md-surface: #fff1f3;           /* 页面大背景 */
+    --md-container: #ffffff;         /* 卡片/容器背景 */
+    --md-on-surface: #201a1b;        /* 高对比度标题文字 */
+    --md-on-container: #524345;      /* 次要/正文文字 */
+    --md-outline: #eeeeee;           /* 边框线条 */
+    --md-radius: 28px;               /* 标准圆角 */
+    --shadow: 0 4px 12px rgba(255, 133, 161, 0.1);
+    
+    /* 切换开关变量 */
+    --switch-track: #f7f2f9;
+    --switch-thumb: #79747e;
+}
+
+body.dark-mode {
+    /* 深色模式 */
+    --md-primary: #ffb3c1;
+    --md-surface: #1a1112;           /* 深色大背景 */
+    --md-container: #251a1c;         /* 深色卡片背景 */
+    --md-on-surface: #f0e0e1;        /* 亮色标题文字 */
+    --md-on-container: #d7c2c3;      /* 亮粉正文文字 */
+    --md-outline: #382d2f;           /* 深色模式边框 */
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    --switch-track: #2b2930;
+    --switch-thumb: #d0bcff;
+}
+
+/* ================================================= */
+/* 2. 基础页面重置与全局适配 */
+/* ================================================= */
+body {
+    background-color: var(--md-surface) !important;
+    color: var(--md-on-container);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    line-height: 1.6;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 统一标题颜色 */
+h1, h2, h3, h4, h5, h6, .post-title, .section-title {
+    color: var(--md-on-surface) !important;
+    transition: color 0.4s ease;
+}
+
+/* ================================================= */
+/* 3. 通用组件：卡片、容器、导航栏基础 */
+/* ================================================= */
+.post-card, .avatar-box, .loader-card, .navbar, .common-container {
+    background-color: var(--md-container) !important;
+    color: var(--md-on-container);
+    border-radius: var(--md-radius);
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+/* 深色模式下显化边界线，增加层次感 */
+body.dark-mode .post-card, 
+body.dark-mode .avatar-box,
+body.dark-mode .navbar,
+body.dark-mode .common-container {
+    border: 1px solid var(--md-outline);
+}
+
+/* 通用间距策略 */
+.post-card, .avatar-box, .content-section {
+    padding: 24px;
+    margin-bottom: 24px !important;
+}
+
+/* ================================================= */
+/* 4. MD3 主题切换开关 (Switch) */
+/* ================================================= */
+#theme-wrapper {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(60%);
+    transition: transform 0.4s cubic-bezier(0.05, 0.7, 0.1, 1);
+    z-index: 1000;
+}
+
+#theme-wrapper:hover {
+    transform: translateY(-50%) translateX(-16px);
+}
+
+.md3-switch {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    font-size: 0; /* 隐藏回退文字 */
+    outline: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+.md3-switch__track {
+    width: 52px;
+    height: 32px;
+    border-radius: 100px;
+    background-color: var(--switch-track);
+    border: 2px solid var(--md-outline);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.md3-switch__thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--switch-thumb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.md3-switch__thumb .material-icons {
+    font-size: 18px !important;
+    transition: color 0.3s ease;
+}
+
+/* 状态切换逻辑 */
+body.dark-mode .md3-switch__track {
+    background-color: var(--md-primary);
+    border-color: var(--md-primary);
+}
+
+body.dark-mode .md3-switch__thumb {
+    left: 24px;
+    background-color: var(--md-on-surface);
+}
+
+/* ================================================= */
+/* 5. 响应式基础适配 */
+/* ================================================= */
+@media (max-width: 768px) {
+    .post-card, .avatar-box, .common-container {
+        margin: 10px 10px 16px 10px !important;
+        padding: 16px;
+        border-radius: 20px;
+    }
+    
+    #theme-wrapper {
+        transform: translateY(-50%) translateX(75%);
+    }
+}

@@ -1,0 +1,440 @@
+/* 深色主题适配 */
+/* ================================================= */
+/* 1. 数据分离：MD3 统一变量系统 */
+:root {
+    /* 浅色模式 */
+    --md-primary: #ff85a1;
+    --md-surface: #fff1f3;           /* 全局底色 */
+    --md-container: #ffffff;         /* 卡片背景 */
+    --md-on-surface: #201a1b;        /* 主标题色 */
+    --md-on-container: #524345;      /* 正文色 */
+    --md-outline: #eeeeee;
+    --md-radius: 28px;
+    --shadow: 0 4px 12px rgba(255, 133, 161, 0.1);
+    
+    --switch-track: #f7f2f9;
+    --switch-thumb: #79747e;
+}
+
+body.dark-mode {
+    /* 深色模式 */
+    --md-primary: #ffb3c1;
+    --md-surface: #1a1112;           /* 深色底色 */
+    --md-container: #251a1c;         /* 深色卡片（需比底色亮一点） */
+    --md-on-surface: #f0e0e1;
+    --md-on-container: #d7c2c3;
+    --md-outline: #382d2f;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+
+    --switch-track: #2b2930;
+    --switch-thumb: #d0bcff;
+}
+
+/* ================================================= */
+/* 2. 基础布局修复（解决间距与乱斗问题） */
+body {
+    background-color: var(--md-surface) !important;
+    color: var(--md-on-container);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    line-height: 1.6;
+    padding-top: 80px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 统一卡片样式：强制增加 margin 解决粘连 */
+.post-card, .avatar-box, .loader-card, .navbar {
+    background-color: var(--md-container) !important;
+    color: var(--md-on-container);
+    border-radius: var(--md-radius);
+    box-shadow: var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.post-card, .avatar-box {
+    padding: 24px;
+    margin-bottom: 24px !important; /* 强制间距 */
+    border: 1px solid transparent;
+}
+
+body.dark-mode .post-card, 
+body.dark-mode .avatar-box {
+    border: 1px solid var(--md-outline);
+}
+
+/* 标题颜色适配 */
+h1, h2, h3, .post-title, .avatar-name {
+    color: var(--md-on-surface) !important;
+}
+
+/* ================================================= */
+/* 3. MD3 Switch 核心样式（右侧吸附） */
+#theme-wrapper {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(60%);
+    transition: transform 0.4s cubic-bezier(0.05, 0.7, 0.1, 1);
+    z-index: 1000;
+}
+
+#theme-wrapper:hover {
+    transform: translateY(-50%) translateX(-16px);
+}
+
+.md3-switch {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.md3-switch__track {
+    width: 52px;
+    height: 32px;
+    border-radius: 100px;
+    background-color: var(--switch-track);
+    border: 2px solid var(--md-outline);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.md3-switch__thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--switch-thumb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.dark-mode .md3-switch__track {
+    background-color: var(--md-primary);
+    border-color: var(--md-primary);
+}
+
+body.dark-mode .md3-switch__thumb {
+    left: 24px;
+    background-color: var(--md-on-surface);
+}
+
+/* ================================================= */
+/* 4. 加载层与组件细节（修复变量引用错误） */
+#loading-overlay {
+    background-color: var(--md-surface);
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center; z-index: 9999;
+}
+
+.avatar-img {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 4px solid var(--md-primary);
+    object-fit: cover;
+}
+
+/* 按钮与小标签 */
+.btn-pink {
+    background-color: var(--md-primary);
+    color: white; border-radius: 20px; padding: 8px 24px; border: none;
+}
+
+/* ================================================= */
+/* 5. 响应式补丁 */
+@media (max-width: 768px) {
+    .post-card, .avatar-box {
+        margin: 10px 10px 20px 10px !important;
+        padding: 16px;
+        border-radius: 20px;
+    }
+    #theme-wrapper {
+        transform: translateY(-50%) translateX(75%);
+    }
+}
+
+.md3-switch__thumb .material-icons {
+    font-size: 18px;
+    /* 核心修改：浅色模式下图标用深色 */
+    color: var(--md-on-surface-variant); 
+    transition: color 0.3s ease;
+}
+
+/* 深色模式下的图标颜色 */
+body.dark-mode .md3-switch__thumb .material-icons {
+    /* 深色模式下图标变回亮粉色或白色 */
+    color: var(--md-primary); 
+}
+
+.md3-switch__track {
+    width: 52px;
+    height: 32px;
+    border-radius: 100px;
+    background-color: var(--switch-track);
+    /* 核心修改：确保边框在浅色模式下清晰可见 */
+    border: 2px solid var(--md-outline) !important; 
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.md3-switch {
+    font-size: 0 !important; /* 强制隐藏所有回退文字 */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.md3-switch__thumb span {
+    /* 确保图标大小正常显示，不受父级 font-size: 0 影响 */
+    font-size: 18px !important; 
+}
+
+
+/* -------------------------------------------------- */
+
+        /* 侧边栏猫娘头像 */
+        .avatar-box {
+            background: var(--md-container);
+            border-radius: var(--md-radius);
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid var(--md-primary);
+            object-fit: cover;
+        }
+
+        .post-tag {
+            background: #ffe0e6;
+            color: var(--md-primary);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+        }
+
+        /* 按钮自定义 */
+        .btn-pink {
+            background-color: var(--md-primary);
+            color: white;
+            border-radius: 20px;
+            padding: 8px 24px;
+            border: none;
+        }
+
+        .btn-pink:hover {
+            background-color: #fb6f92;
+            color: white;
+        }
+
+        /* 模拟 MD3 悬浮按钮 (FAB) */
+        .fab {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 56px;
+            height: 56px;
+            background: var(--md-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+
+
+
+
+        /* 加载遮罩层 */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--md-sys-color-surface);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* MD3 风格的卡片容器 */
+        .loader-card {
+            background-color: var(--md-sys-color-surface-variant);
+            padding: 40px;
+            border-radius: 28px;
+            /* MD3 标志性的超大圆角 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 旋转的猫耳图标 (使用 MD 图标) */
+        .cat-icon {
+            font-size: 48px;
+            color: var(--md-sys-color-primary);
+            margin-bottom: 24px;
+            font-variation-settings: 'FILL' 1;
+            animation: rotate-pulse 2s infinite ease-in-out;
+        }
+
+        .loading-text {
+            color: var(--md-sys-color-on-primary-container);
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        /* MD3 线条进度条 (Linear Progress Indicator) */
+        .md3-progress-track {
+            width: 200px;
+            height: 4px;
+            background-color: var(--md-sys-color-outline);
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .md3-progress-indicator {
+            position: absolute;
+            height: 100%;
+            width: 50%;
+            background-color: var(--md-sys-color-primary);
+            border-radius: 2px;
+            animation: indeterminate 1.5s infinite linear;
+        }
+
+        /* 动画定义 */
+        @keyframes rotate-pulse {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(10deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes indeterminate {
+            0% {
+                left: -50%;
+                width: 30%;
+            }
+
+            50% {
+                left: 25%;
+                width: 70%;
+            }
+
+            100% {
+                left: 100%;
+                width: 30%;
+            }
+        }
+
+        /* 加载完成后的内容展示区 */
+        #main-content {
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+
+        /* 响应式微调 */
+        @media (max-width: 991px) {
+
+
+
+            /* 侧边栏在手机端掉下去后，增加顶部间距 */
+            .col-lg-4 {
+                margin-top: 20px;
+            }
+        }
+
+        /* 确保所有图片都不会撑破容器 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+
+
+        /* 悬浮与吸附逻辑 */
+        #theme-wrapper {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) translateX(60%);
+            /* MD3 建议侧边抽屉留出更多交互空间 */
+            transition: transform 0.4s cubic-bezier(0.05, 0.7, 0.1, 1);
+            z-index: 1000;
+        }
+
+        #theme-wrapper:hover {
+            transform: translateY(-50%) translateX(-16px);
+        }
+
+        /* MD3 Switch 核心样式 */
+        .md3-switch {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .md3-switch__track {
+            width: 52px;
+            height: 32px;
+            border-radius: 100px;
+            background-color: var(--md-sys-color-surface-container);
+            border: 2px solid var(--md-sys-color-outline);
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .md3-switch__thumb {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--md-sys-color-outline);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .md3-switch__thumb span {
+            font-size: 16px;
+            color: var(--md-sys-color-surface-container);
+        }
+
+
+
